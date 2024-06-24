@@ -1,0 +1,33 @@
+# values.yaml
+replicaCount: 3
+
+image:
+  repository: your-docker-repo/insuranceapp
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+
+elasticsearch:
+  host: http://elasticsearch:9200
+
+aws:
+  accessKey: your-aws-access-key
+  secretKey: your-aws-secret-key
+  bucketName: your-s3-bucket
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

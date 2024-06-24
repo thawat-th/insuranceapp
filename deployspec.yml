@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      kubectl: 1.19
+      helm: 3.3.4
+    commands:
+      - echo Installing dependencies...
+      - curl -sSL https://get.helm.sh/helm-v3.3.4-linux-amd64.tar.gz | tar xz
+      - mv linux-amd64/helm /usr/local/bin/helm
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
+    commands:
+      - echo Deploy started on `date`
+      - helm upgrade --install insuranceapp ./helm --set image.repository=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/insuranceapp,image.tag=latest
+  post_build:
+    commands:
+      - echo Deployment completed on `date`
+artifacts:
+  files: []

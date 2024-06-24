@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+aws:
+  s3:
+    bucketName: ${AWS_S3_BUCKET_NAME:default-s3-bucket}
+    accessKeyId: ${AWS_ACCESS_KEY_ID:default-access-key}
+    secretAccessKey: ${AWS_SECRET_ACCESS_KEY:default-secret-key}
+    region: ${AWS_REGION:us-west-2}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.example.insuranceapp: INFO
+
+elasticsearch:
+  host: ${ELASTICSEARCH_HOST:http://localhost:9200}
